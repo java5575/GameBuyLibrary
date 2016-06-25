@@ -5,6 +5,7 @@
  */
 package gamebuy.gb.domain;
 
+import gamebuy.gb.domain.GameBuyException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

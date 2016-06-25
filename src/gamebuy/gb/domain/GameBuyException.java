@@ -7,29 +7,25 @@ package gamebuy.gb.domain;
 
 /**
  *
- * @author Administrator
+ * @author Robbie wu
  */
 public class GameBuyException extends Exception {
 
-    /**
-     * Creates a new instance of <code>GameBuyException</code> without detail
-     * message.
-     */
     public GameBuyException() {
     }
 
-    /**
-     * Constructs an instance of <code>GameBuyException</code> with the
-     * specified detail message.
-     *
-     * @param msg the detail message.
-     */
-    public GameBuyException(String msg) {
-        super(msg);
+    public GameBuyException(String message) {
+        super(message);
     }
 
     public GameBuyException(String message, Throwable cause) {
         super(message, cause);
     }
+
+    public GameBuyException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
     
+    
+
 }

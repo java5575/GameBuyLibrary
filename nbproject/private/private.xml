@@ -2,6 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/GameBuy_Project/GameBuyLibrary/src/gamebuy/gb/domain/Product.java</file>
+            <file>file:/C:/GameBuy_Project/GameBuyLibrary/src/gamebuy/gb/model/RDBProductsDAO.java</file>
+            <file>file:/C:/GameBuy_Project/GameBuyLibrary/src/gamebuy/gb/domain/PlatForm.java</file>
+        </group>
     </open-files>
 </project-private>

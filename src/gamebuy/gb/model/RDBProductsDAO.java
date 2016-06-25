@@ -18,7 +18,8 @@ import gamebuy.gb.domain.Product;
  * @author Administrator
  */
 public class RDBProductsDAO {
-
+    
+    private static final String COL_LIST2 = "products.id,products.name,products.unitprice,products.url,products.description,products.bonus,products.status,products.preferentialprice,products.issuedate,platform.chname,gametype.chname";
     private static final String COL_LIST = "name, unitprice, stock, url, description, bonus, status, preferentialprice, issuedate, platform, gametype";
     private static final String SELECT_SQL = "SELECT id, " + COL_LIST + " FROM products WHERE id=?";
     private static final String SELECT_ALL_SQL = "SELECT id, " + COL_LIST + " FROM products";
@@ -32,7 +33,16 @@ public class RDBProductsDAO {
             + "issuedate=?,platform=?,gametype=? WHERE id=?";
     private static final String DELETE_SQL = "DELETE FROM products WHERE id=?";
     private static final String IN_SQL = "SELECT gametype FROM products WHERE gametype IN ?";
-
+    private static final String JOIN_SELECT_GAMETYPE_SQL = "SELECT " + COL_LIST2 + " FROM products "
+            + "INNER JOIN platform ON products.platform_idplatform = platform.idplatform "
+            + "INNER JOIN gametype ON products.gametype_idgametype = gametype.idgametype "
+            + "WHERE products.gametype_idgametype = ?";
+    private static final String JOIN_SELECT_PLATFROM_SQL = "SELECT " + COL_LIST2 + " FROM products "
+            + "INNER JOIN platform ON products.platform_idplatform = platform.idplatform "
+            + "INNER JOIN gametype ON products.gametype_idgametype = gametype.idgametype "
+            + "WHERE products.platform_idplatform = ?";
+    
+    
     public void insert(Product p) throws GameBuyException {
         try (Connection connection = RDBConnection.getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(
@@ -82,8 +92,8 @@ public class RDBProductsDAO {
             pstmt.setString(7, p.getClass().getSimpleName());//status
             pstmt.setDouble(8, p.getPreferentialPrice());
             pstmt.setDate(9, new java.sql.Date(p.getIssueDate().getTime()));
-            pstmt.setString(10, p.getClass().getSimpleName());//platform
-            pstmt.setString(11, p.getClass().getSimpleName());//gametype
+            pstmt.setString(10, p.getPlatForm().name());//platform
+            pstmt.setString(11, p.getGameType().name());//gametype
 
             pstmt.setInt(12, p.getId());
 
