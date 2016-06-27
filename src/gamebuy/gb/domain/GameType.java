@@ -10,25 +10,27 @@ package gamebuy.gb.domain;
  * @author Robbie wu
  */
 public enum GameType {
-    SOFTWARE("遊戲軟體"), TRADITIONAL_CHINESE_SOFTWARE("中文化遊戲軟體"), 
-    HARDWARE("硬體周邊"), RESTRICTED("限制級專區");
+    SOFTWARE("遊戲軟體"), CHSOFTWARE("中文化遊戲軟體"), RESTRICTED("限制級專區");
     
     private String chName;
-    
-    public String getName(){
-        return chName;
-    }
-    private GameType(String chName){
-        this.chName = chName;
-    }
+    //private int id;
     
     public String getChName(){
         return chName;
     }
-
-    @Override
-    public String toString() {
-        return super.toString();
+    
+    private GameType(String chName){
+        this.chName = chName;
+        //this.id = id;
     }
+    
+//    public int getNumber(){
+//        return id;
+//    }    
+    
+//    @Override
+//    public String toString() {
+//        return super.toString();
+//    }
     
 }

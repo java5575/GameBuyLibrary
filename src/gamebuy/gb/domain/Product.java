@@ -142,16 +142,9 @@ public class Product {
     }
     
     public void setPlatForm(PlatForm platForm) throws GameBuyException {
+        
         if (platForm != null) {
             this.platForm = platForm;
-        } else {
-            throw new GameBuyException("遊戲平台不能為空白");
-        }
-    }
-
-    public void setPlatForm(String platForm) throws GameBuyException {
-        if (platForm != null) {
-            this.setPlatForm(PlatForm.valueOf(platForm));
         } else {
             throw new GameBuyException("遊戲平台不能為空白");
         }
@@ -161,20 +154,14 @@ public class Product {
         return gameType;
     }
     
-    public void setGameType(GameType gameType)  {
+    public void setGameType(GameType gameType) throws GameBuyException{
         if (gameType != null) {
             this.gameType = gameType;
-        } 
-    }
-
-    public void setGameType(String gameType) throws GameBuyException {
-        if (gameType != null) {
-            this.setGameType(GameType.valueOf(gameType));
-        } else {
+        } else{
             throw new GameBuyException("遊戲類型不能為空白");
         }
     }
-
+    
     public Date getIssueDate() {
         return issueDate;
     }

@@ -19,7 +19,7 @@ import gamebuy.gb.domain.Product;
  */
 public class RDBProductsDAO {
 
-    private static final String COL_LIST = "name, unitprice, stock, url, description, bonus, status, preferentialprice, issuedate, platform, gametype";
+    private static final String COL_LIST = "name, unitprice, stock, url, description, bonus, status, preferentialprice, issuedate, platform_idplatform, gametype_idgametype";
     private static final String SELECT_SQL = "SELECT id, " + COL_LIST + " FROM products WHERE id=?";
     private static final String SELECT_ALL_SQL = "SELECT id, " + COL_LIST + " FROM products";
 
@@ -48,8 +48,8 @@ public class RDBProductsDAO {
             pstmt.setInt(7, p.getStatus());//status
             pstmt.setDouble(8, p.getPreferentialPrice());
             pstmt.setDate(9, new java.sql.Date(p.getIssueDate().getTime()));
-            pstmt.setString(10, p.getPlatForm().name());//platform
-            pstmt.setString(11, p.getGameType().name());//gametype
+            pstmt.setInt(10, p.getPlatForm().ordinal());//platform
+            pstmt.setInt(11, p.getGameType().ordinal());//gametype
 
             if (p.getId() > 0) {
                 pstmt.setInt(8, p.getId());
@@ -82,8 +82,8 @@ public class RDBProductsDAO {
             pstmt.setString(7, p.getClass().getSimpleName());//status
             pstmt.setDouble(8, p.getPreferentialPrice());
             pstmt.setDate(9, new java.sql.Date(p.getIssueDate().getTime()));
-            pstmt.setString(10, p.getClass().getSimpleName());//platform
-            pstmt.setString(11, p.getClass().getSimpleName());//gametype
+            pstmt.setInt(10, p.getPlatForm().ordinal());//platform
+            pstmt.setInt(11, p.getGameType().ordinal());//gametype
 
             pstmt.setInt(12, p.getId());
 
@@ -124,11 +124,11 @@ public class RDBProductsDAO {
                     p.setPreferentialPrice(rs.getDouble("preferentialprice"));
                     p.setIssueDate(rs.getDate("issuedate"));
 
-                    String platForm = rs.getString("platform");
-                    p.setPlatForm(platForm);
+                    Integer platForm = rs.getInt("platform_idplatform");
+                    p.setPlatForm(PlatForm.values()[platForm]);
 
-                    String gameType = rs.getString("gametype");
-                    p.setGameType(gameType);
+                    Integer gameType = rs.getInt("gametype_idgametype");
+                    p.setGameType(GameType.values()[gameType]);
 
                     list.add(p);
                 } catch (RuntimeException ex) {
@@ -160,12 +160,12 @@ public class RDBProductsDAO {
                         p.setStatus(rs.getInt("status"));
                         p.setPreferentialPrice(rs.getDouble("preferentialprice"));
                         p.setIssueDate(rs.getDate("issuedate"));
+//
+                        Integer platForm = rs.getInt("platform_idplatform");
+                        p.setPlatForm(PlatForm.values()[platForm]);
 
-                        String platForm = rs.getString("platform");
-                        p.setPlatForm(platForm);
-
-                        String gameType = rs.getString("gametype");
-                        p.setGameType(gameType);
+                        Integer gameType = rs.getInt("gametype_idgametype");
+                        p.setGameType(GameType.values()[gameType]);
 
                     } catch (RuntimeException ex) {
                         System.out.println("產品資料讀取錯誤: " + ex);
@@ -183,33 +183,33 @@ public class RDBProductsDAO {
         List<Product> list = new ArrayList<>();
         try (Connection connection = RDBConnection.getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(IN_SQL);) {
-            pstmt.setString(1, '('+ gametype +')');//傳SQL指令
-            try(ResultSet rs = pstmt.executeQuery();){
-            while (rs.next()) {
-                Product p = new Product();
-                try {
-                    
-                    p.setId(rs.getInt("id"));
-                    p.setName(rs.getString("name"));
-                    p.setUnitPrice(rs.getDouble("unitprice"));
-                    p.setStock(rs.getInt("stock"));
-                    p.setUrl(rs.getString("url"));
-                    p.setDescription(rs.getString("description"));
-                    p.setBonus(rs.getInt("bonus"));
-                    p.setStatus(rs.getInt("status"));
-                    p.setPreferentialPrice(rs.getDouble("preferentialprice"));
-                    p.setIssueDate(rs.getDate("issuedate"));
+            pstmt.setString(1, '(' + gametype + ')');//傳SQL指令
+            try (ResultSet rs = pstmt.executeQuery();) {
+                while (rs.next()) {
+                    Product p = new Product();
+                    try {
 
-                    String platForm = rs.getString("platform");
-                    p.setPlatForm(platForm);
+                        p.setId(rs.getInt("id"));
+                        p.setName(rs.getString("name"));
+                        p.setUnitPrice(rs.getDouble("unitprice"));
+                        p.setStock(rs.getInt("stock"));
+                        p.setUrl(rs.getString("url"));
+                        p.setDescription(rs.getString("description"));
+                        p.setBonus(rs.getInt("bonus"));
+                        p.setStatus(rs.getInt("status"));
+                        p.setPreferentialPrice(rs.getDouble("preferentialprice"));
+                        p.setIssueDate(rs.getDate("issuedate"));
 
-                    String gameType = rs.getString("gametype");
-                    p.setGameType(gameType);
-                    list.add(p);
-                } catch (RuntimeException ex) {
-                    System.out.println("產品資料讀取錯誤: " + ex);
+                        Integer platForm = rs.getInt("platform_idplatform");
+                        p.setPlatForm(PlatForm.values()[platForm]);
+
+                        Integer gameType = rs.getInt("gametype_idgametype");
+                        p.setGameType(GameType.values()[gameType]);
+                        list.add(p);
+                    } catch (RuntimeException ex) {
+                        System.out.println("產品資料讀取錯誤: " + ex);
+                    }
                 }
-            }
             }
             return list;
         } catch (SQLException ex) {
