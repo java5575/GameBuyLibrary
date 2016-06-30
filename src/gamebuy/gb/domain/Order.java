@@ -145,7 +145,16 @@ public class Order {
     }
 
     public double getTotalAmount() {
+        if(orderItemLst == null || orderItemLst.isEmpty()){
         return totalAmount;
+        }else{
+            double sum = 0;
+            for(OrderItem item:orderItemLst){
+                sum += item.getPrice() * item.getQuantity();
+            }
+            sum = sum - bonus;
+            return sum;
+        }
     }
 
     public void setTotalAmount(double totalAmount) {
@@ -191,7 +200,7 @@ public class Order {
                 + ",\n paymentType=" + paymentType + ", paymentFee=" + paymentFee + ", paymentNote=" + paymentNote 
                 + ",\n shippingType=" + shippingType + ", shippingFee=" + shippingFee + ", shippingNote=" + shippingNote + ", shippingAddress=" + shippingAddress
                 + ",\n receiverName=" + receiverName + ", receiverEmail="+ receiverEmail  + ", receiverPhone=" + receiverPhone 
-                + ", status=" + status + '}';
+                + ", status=" + status + ",TotalAmount= " + this.getTotalAmount() + '}';
     }
     
     
