@@ -97,4 +97,8 @@ public class ShoppingCart {
         }
         return totalAmount;
     }
+
+    public void remove(Product p) {
+       cart.remove(p);
+    }
 }
