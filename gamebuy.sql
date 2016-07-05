@@ -34,7 +34,7 @@ CREATE TABLE  customers  (
    email  varchar(45) NOT NULL,
    password  varchar(20) NOT NULL,
    address  varchar(120) NOT NULL,
-   phone  int(10) NOT NULL,
+   phone  varchar(10) NOT NULL,
    name  varchar(20) NOT NULL,
    birthday  date NOT NULL,
    status  int(10) unsigned NOT NULL DEFAULT '0',
