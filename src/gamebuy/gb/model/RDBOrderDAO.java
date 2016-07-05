@@ -35,7 +35,7 @@ public class RDBOrderDAO {
     private static final String SELECT_ORDERS_HISTORY_BY_CUSTOMER_ID
             = "SELECT orders.id,orders.created_time,orders.status,"
             + "payment_type,payment_fee,shipping_fee,shipping_type,shipping_address,"
-            + "receiver_name,receiver_email,receiver_phone,"
+            + "receiver_name,receiver_email,receiver_phone,bonus,"
             + "sum(price*quantity) as total_amount FROM orders "
             + "INNER JOIN order_item ON orders.id = order_item.order_id "
             + "WHERE customer_email = ? "
@@ -103,6 +103,10 @@ public class RDBOrderDAO {
     public void delete(Order c) throws GameBuyException {
 
     }
+    
+    public void updateStatus(int oldStatus, Order order) throws GameBuyException {
+        
+    }
 
     public Order get(Integer id) throws GameBuyException {
         Order order = createOrderObjrct(null);
@@ -131,7 +135,7 @@ public class RDBOrderDAO {
                     o.setReceiverPhone(rs.getString("receiver_phone"));
                     o.setShippingAddress(rs.getString("shipping_address"));
                     o.setTotalAmount(rs.getDouble("total_amount"));
-                    
+                    o.setBonus(rs.getInt("bonus"));
                     list.add(o);
                 }
                 return list;
