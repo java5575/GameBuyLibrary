@@ -182,24 +182,6 @@ INSERT INTO  products  ( id , name , unitprice , stock , url , description , bon
 /*!40000 ALTER TABLE  products  ENABLE KEYS */;
 COMMIT;
 
-
-
-
---
--- Definition of table  order_item 
---
-
---
--- Dumping data for table  order_item 
---
-
-
-
-
---
--- Definition of table  orders 
---
-
 DROP TABLE IF EXISTS  orders ;
 CREATE TABLE  orders  (
    id  int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -239,23 +221,7 @@ CREATE TABLE  order_item  (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 COMMIT;
 
--- Definition of table  platform 
---
-
-
-
---
--- Definition of table  products 
---
 
 
 
 
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
