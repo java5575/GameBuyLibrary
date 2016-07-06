@@ -36,7 +36,7 @@ public class RDBOrderDAO {
             = "SELECT orders.id,orders.created_time,orders.status,"
             + "payment_type,payment_fee,shipping_fee,shipping_type,shipping_address,"
             + "receiver_name,receiver_email,receiver_phone,bonus,"
-            + "sum(price*quantity) as total_amount,sum(new_bonus*quantity) as total_bonus FROM orders "
+            + "sum(price*quantity) as total_amount,new_bonus FROM orders "
             + "INNER JOIN order_item ON orders.id = order_item.order_id "
             + "WHERE customer_email = ? "
             + "GROUP BY order_id";
@@ -64,7 +64,7 @@ public class RDBOrderDAO {
                 pstmt.setString(12, order.getReceiverPhone());
                 pstmt.setInt(13, order.getStatus());
                 pstmt.setInt(14, order.getBonus());
-                pstmt.setInt(15, order.getNewBonus()); 
+                pstmt.setInt(15, order.getTotalBonus()); 
                 pstmt.executeUpdate();
 
                 //取得DB自動給號的訂單編號
@@ -137,7 +137,7 @@ public class RDBOrderDAO {
                     o.setShippingAddress(rs.getString("shipping_address"));
                     o.setTotalAmount(rs.getDouble("total_amount"));
                     o.setBonus(rs.getInt("bonus"));
-                    o.setNewBonus(rs.getInt("total_bonus"));
+                    o.setNewBonus(rs.getInt("new_bonus"));
                     list.add(o);
                 }
                 return list;
