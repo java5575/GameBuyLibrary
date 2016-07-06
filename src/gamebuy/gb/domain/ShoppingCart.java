@@ -88,7 +88,7 @@ public class ShoppingCart {
         return sum;
     }
     
-    public double getTotalAmount(){
+    public double getListTotalAmount(){
         double totalAmount = 0;
         for(Product p:cart.keySet()){
             Integer q = cart.get(p);
@@ -97,7 +97,27 @@ public class ShoppingCart {
         }
         return totalAmount;
     }
-
+    
+    public double getTotalAmount() {
+        double totalAmount = 0;
+        for(Product p:cart.keySet()){
+            Integer q = cart.get(p);
+            totalAmount += p.getPreferentialPrice()*(q == null ? 0 : q);
+            
+        }
+        return totalAmount;
+    }
+    
+    public double getTotalBonus(){
+        double totalBonus = 0;
+        for(Product p:cart.keySet()){
+            Integer q = cart.get(p);
+            totalBonus += p.getBonus()*(q == null ? 0 : q);
+            
+        }
+        return totalBonus;
+    }
+    
     public void remove(Product p) {
        cart.remove(p);
     }

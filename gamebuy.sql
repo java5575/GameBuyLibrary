@@ -1,22 +1,4 @@
--- MySQL Administrator dump 1.4
---
--- ------------------------------------------------------
--- Server version	5.7.12-log
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
-
---
--- Create schema gamebuy
---
 DROP DATABASE IF EXISTS gamebuy;
 CREATE DATABASE IF NOT EXISTS gamebuy;
 
@@ -28,8 +10,8 @@ USE gamebuy;
 -- Definition of table  customers 
 --
 
-DROP TABLE IF EXISTS  customers ;
-CREATE TABLE  customers  (
+DROP TABLE IF EXISTS  gamebuy . customers ;
+CREATE TABLE   gamebuy . customers  (
    id  char(10) NOT NULL,
    email  varchar(45) NOT NULL,
    password  varchar(20) NOT NULL,
@@ -60,8 +42,8 @@ COMMIT;
 -- Definition of table  gametype 
 --
 
-DROP TABLE IF EXISTS  platform ;
-CREATE TABLE  platform  (
+DROP TABLE IF EXISTS  gamebuy . platform ;
+CREATE TABLE   gamebuy . platform  (
    idplatform  int(11) NOT NULL,
    name  varchar(10) NOT NULL,
    chname  varchar(15) NOT NULL,
@@ -83,8 +65,8 @@ INSERT INTO  platform  ( idplatform , name , chname ) VALUES
 /*!40000 ALTER TABLE  platform  ENABLE KEYS */;
 COMMIT;
 
-DROP TABLE IF EXISTS  gametype ;
-CREATE TABLE  gametype  (
+DROP TABLE IF EXISTS  gamebuy . gametype ;
+CREATE TABLE   gamebuy . gametype  (
    idgametype  int(11) NOT NULL,
    name  varchar(10) NOT NULL,
    chname  varchar(10) NOT NULL,
@@ -105,8 +87,8 @@ COMMIT;
 
 
 
-DROP TABLE IF EXISTS  products ;
-CREATE TABLE  products  (
+DROP TABLE IF EXISTS  gamebuy . products ;
+CREATE TABLE   gamebuy . products  (
    id  int(10) unsigned NOT NULL AUTO_INCREMENT,
    name  varchar(40) NOT NULL,
    unitprice  double NOT NULL,
@@ -182,8 +164,8 @@ INSERT INTO  products  ( id , name , unitprice , stock , url , description , bon
 /*!40000 ALTER TABLE  products  ENABLE KEYS */;
 COMMIT;
 
-DROP TABLE IF EXISTS  orders ;
-CREATE TABLE  orders  (
+DROP TABLE IF EXISTS  gamebuy . orders ;
+CREATE TABLE   gamebuy . orders  (
    id  int(11) unsigned NOT NULL AUTO_INCREMENT,
    customer_email  varchar(45) NOT NULL,
    created_time  datetime NOT NULL,
@@ -199,21 +181,23 @@ CREATE TABLE  orders  (
    receiver_phone  varchar(20) NOT NULL,
    status  int(10) unsigned NOT NULL DEFAULT '0',
    bonus  int(10) unsigned NOT NULL,
+   new_bonus  int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY ( id ) USING BTREE,
   KEY  fk_oders_customers1_idx  ( customer_email ),
   CONSTRAINT  fk_customers  FOREIGN KEY ( customer_email ) REFERENCES  customers  ( email ) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 COMMIT;
 --
 -- Dumping data for table  orders 
 --
 
-DROP TABLE IF EXISTS  order_item ;
-CREATE TABLE  order_item  (
+DROP TABLE IF EXISTS  gamebuy . order_item ;
+CREATE TABLE   gamebuy . order_item  (
    order_id  int(10) unsigned NOT NULL,
    product_id  int(10) unsigned NOT NULL,
    price  double NOT NULL,
    quantity  int(10) unsigned NOT NULL,
+   new_bouns  int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY ( order_id , product_id ),
   KEY  FK_order_items_products  ( product_id ),
   CONSTRAINT  FK_order_items_orders  FOREIGN KEY ( order_id ) REFERENCES  orders  ( id ),

@@ -27,6 +27,11 @@ public class Order {
     
     private double totalAmount;
     private int status;//{0:新訂單..}
+    private int totalBonus;
+    
+    
+
+        
 
     public int getBonus() {
         return bonus;
@@ -156,13 +161,31 @@ public class Order {
             for(OrderItem item:orderItemLst){
                 sum += item.getPrice() * item.getQuantity();
             }
-            sum = sum - bonus;
+            sum = sum ;
             return sum;
         }
     }
 
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
+    }
+    
+    public int getNewBonus() {
+        
+        if(orderItemLst == null || orderItemLst.isEmpty()){
+        return totalBonus;
+        }else{
+            int sum = 0;
+            for(OrderItem item:orderItemLst){
+                sum += item.getNewBonus() * item.getQuantity();
+            }
+            return sum;
+        }
+    }
+
+    public void setNewBonus(int newBonus) {
+        this.totalBonus = newBonus;
+        
     }
 
     public List<OrderItem> getOrderItemLst() {
@@ -187,11 +210,8 @@ public class Order {
             OrderItem item = new OrderItem();
             item.setProduct(p);
             item.setQuantity(cart.getQuantity(p));
-            if (bonus !=0 ) {
-                item.setPrice(p.getUnitPrice()-p.getBonus());
-            }else{
-                item.setPrice(p.getUnitPrice());
-            }
+            item.setPrice(p.getPreferentialPrice());
+            item.setNewBonus(p.getBonus());
             this.add(item);
         }
     }

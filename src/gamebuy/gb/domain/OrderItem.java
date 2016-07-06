@@ -14,15 +14,21 @@ public class OrderItem {
     private Product product;
     private double price;
     private int quantity;
-    
+    private int newbonus;
 
-    /**
+    public int getNewBonus() {
+        return newbonus;
+    }
+
+    public void setNewBonus(int newBonus) {
+        this.newbonus = newBonus;
+    }
+    /*
      * @return the orderId
      */
     public int getOrderId() {
         return orderId;
     }
-
     /**
      * @param orderId the orderId to set
      */

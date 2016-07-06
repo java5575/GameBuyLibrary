@@ -26,17 +26,17 @@ public class RDBOrderDAO {
 
     private static final String COL_LIST = "customer_email,created_time,payment_type,payment_fee,payment_note,"
             + "shipping_type,shipping_fee,shipping_note,shipping_address,receiver_name,receiver_email,"
-            + "receiver_phone,status,bonus";
+            + "receiver_phone,status,bonus,new_bonus";
     private static final String INSERT_ORDERS_SQL = "INSERT INTO orders (" + COL_LIST
-            + ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            + ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String INSERT_ORDERITEM_SQL = "INSERT INTO order_item ("
-            + "order_id,product_id,price,quantity"
-            + ") VALUES(?,?,?,?)";
+            + "order_id,product_id,price,quantity,new_bouns"
+            + ") VALUES(?,?,?,?,?)";
     private static final String SELECT_ORDERS_HISTORY_BY_CUSTOMER_ID
             = "SELECT orders.id,orders.created_time,orders.status,"
             + "payment_type,payment_fee,shipping_fee,shipping_type,shipping_address,"
             + "receiver_name,receiver_email,receiver_phone,bonus,"
-            + "sum(price*quantity) as total_amount FROM orders "
+            + "sum(price*quantity) as total_amount,sum(new_bonus*quantity) as total_bonus FROM orders "
             + "INNER JOIN order_item ON orders.id = order_item.order_id "
             + "WHERE customer_email = ? "
             + "GROUP BY order_id";
@@ -64,7 +64,7 @@ public class RDBOrderDAO {
                 pstmt.setString(12, order.getReceiverPhone());
                 pstmt.setInt(13, order.getStatus());
                 pstmt.setInt(14, order.getBonus());
-
+                pstmt.setInt(15, order.getNewBonus()); 
                 pstmt.executeUpdate();
 
                 //取得DB自動給號的訂單編號
@@ -78,8 +78,9 @@ public class RDBOrderDAO {
 
                     pstmt2.setInt(1, order.getId());
                     pstmt2.setInt(2, item.getProduct().getId());
-                    pstmt2.setDouble(3, item.getPrice());
+                    pstmt2.setDouble(3, item.getProduct().getPreferentialPrice());
                     pstmt2.setInt(4, item.getQuantity());
+                    pstmt2.setInt(5, item.getNewBonus());
                     pstmt2.executeUpdate();
 
                 }
@@ -136,6 +137,7 @@ public class RDBOrderDAO {
                     o.setShippingAddress(rs.getString("shipping_address"));
                     o.setTotalAmount(rs.getDouble("total_amount"));
                     o.setBonus(rs.getInt("bonus"));
+                    o.setNewBonus(rs.getInt("total_bonus"));
                     list.add(o);
                 }
                 return list;
