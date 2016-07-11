@@ -5,6 +5,7 @@
  */
 package gamebuy.gb.domain;
 
+import java.text.NumberFormat;
 import java.util.Date;
 
 /**
@@ -12,6 +13,12 @@ import java.util.Date;
  * @author Robbie wu
  */
 public class Product {
+    public static final NumberFormat priceFormat;
+    static{
+        priceFormat = NumberFormat.getInstance();
+        priceFormat.setMinimumFractionDigits(0);
+        priceFormat.setMaximumFractionDigits(2);
+    }  
 
     private int id;//PKey AutoIcrement
     private String name;

@@ -1,6 +1,7 @@
 package gamebuy.gb.domain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -154,11 +155,11 @@ public class Order {
     }
 
     public double getTotalAmount() {
-        if(orderItemLst == null || orderItemLst.isEmpty()){
+        if(orderItemSet == null || orderItemSet.isEmpty()){
         return totalAmount;
         }else{
             double sum = 0;
-            for(OrderItem item:orderItemLst){
+            for(OrderItem item:orderItemSet){
                 sum += item.getPrice() * item.getQuantity();
             }            
             return sum;
@@ -170,11 +171,11 @@ public class Order {
     }
 
     public int getTotalBonus() {
-        if(orderItemLst == null || orderItemLst.isEmpty()){
+        if(orderItemSet == null || orderItemSet.isEmpty()){
         return newBonus;
         }else{
             int sum = 0;
-            for(OrderItem item:orderItemLst){
+            for(OrderItem item:orderItemSet){
                 sum += item.getNewBonus()* item.getQuantity();
             }           
             return sum;
@@ -191,17 +192,16 @@ public class Order {
         this.newBonus = newBonus;
     }
 
-    public List<OrderItem> getOrderItemLst() {
-//        return new ArrayList(orderItemLst);//拿到新覆本
-        return Collections.unmodifiableList(orderItemLst);
+    public Collection<OrderItem> getOrderItemSet() {
+        return Collections.unmodifiableCollection(orderItemSet);
     }
-    private List<OrderItem> orderItemLst;
+    private List<OrderItem> orderItemSet;
 
     public void add(OrderItem item) {
-        if (orderItemLst == null) {
-            orderItemLst = new ArrayList<>();
+        if (orderItemSet == null) {
+            orderItemSet = new ArrayList<>();
         }
-        orderItemLst.add(item);
+        orderItemSet.add(item);
     }
 
     public void add(ShoppingCart cart) throws GameBuyException {

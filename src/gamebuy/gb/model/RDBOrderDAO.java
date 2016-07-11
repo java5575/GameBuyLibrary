@@ -5,10 +5,12 @@
  */
 package gamebuy.gb.model;
 
+import gamebuy.gb.domain.Customer;
 import gamebuy.gb.domain.GameBuyException;
 import gamebuy.gb.domain.Order;
 import gamebuy.gb.domain.OrderItem;
 import gamebuy.gb.domain.PaymentType;
+import gamebuy.gb.domain.Product;
 import gamebuy.gb.domain.ShippingType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,6 +42,21 @@ public class RDBOrderDAO {
             + "INNER JOIN order_item ON orders.id = order_item.order_id "
             + "WHERE customer_email = ? "
             + "GROUP BY order_id";
+    
+    private static final String SELECT_ORDER_BY_ORDER_ID
+            = "SELECT orders.id,customer_email,name,password,created_time,orders.status,"
+            + "payment_type,shipping_type,payment_fee,shipping_fee,payment_note,shipping_note,"
+            + "shipping_address,receiver_name,receiver_email,receiver_phone,"
+            + "SUM(price*quantity) as total_amount FROM orders "
+            + "INNER JOIN customers ON orders.customer_email = customers.email "
+            + "INNER JOIN order_item ON orders.id = order_item.order_id "
+            + "WHERE orders.id=?";
+    
+    private static final String SELECT_ORDER_ITEMS_BY_ORDER_ID
+            = "SELECT product_id,name,price,quantity,order_item.new_bouns "
+            + "FROM order_item JOIN products "
+            + "ON order_item.product_id = products.id "
+            + "WHERE order_id=?";
 
     public void create(Order order) throws GameBuyException {
         try (Connection connection = RDBConnection.getConnection();
@@ -74,7 +91,7 @@ public class RDBOrderDAO {
                     }
                 }
                 //新增訂單明細
-                for (OrderItem item : order.getOrderItemLst()) {
+                for (OrderItem item : order.getOrderItemSet()) {
 
                     pstmt2.setInt(1, order.getId());
                     pstmt2.setInt(2, item.getProduct().getId());
@@ -110,8 +127,56 @@ public class RDBOrderDAO {
     }
 
     public Order get(Integer id) throws GameBuyException {
-        Order order = createOrderObjrct(null);
-        return order;
+        try(Connection connection = RDBConnection.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(SELECT_ORDER_BY_ORDER_ID);
+                PreparedStatement pstmt2 = connection.prepareStatement(SELECT_ORDER_ITEMS_BY_ORDER_ID);){
+            pstmt.setInt(1, id);
+            Order order = this.createOrderObjrct(null);
+            try(ResultSet rs = pstmt.executeQuery();){
+                while(rs.next()){
+                    order.setId(rs.getInt("id"));
+                    Customer c = new Customer();
+                    c.setEmail(rs.getString("customer_email"));
+                    c.setName(rs.getString("name"));
+                    c.setPassword("password");
+                    order.setCustomer(c);
+                    order.setCreatedTime(rs.getTimestamp("created_time")); //TimeStamp
+                    order.setStatus(rs.getInt("status"));
+                    
+                    order.setPaymentType(PaymentType.values()[rs.getInt("payment_type")]);
+                    order.setPaymentFee(rs.getDouble("payment_fee"));
+                    order.setPaymentNote(rs.getString("payment_note"));
+                    order.setShippingType(ShippingType.values()[rs.getInt("shipping_type")]);
+                    order.setPaymentFee(rs.getDouble("shipping_fee"));
+                    order.setPaymentNote(rs.getString("shipping_note"));
+                    order.setReceiverName(rs.getString("receiver_name"));
+                    order.setReceiverEmail(rs.getString("receiver_email"));
+                    order.setReceiverPhone(rs.getString("receiver_phone"));
+                    order.setShippingAddress(rs.getString("shipping_address"));
+                    order.setTotalAmount(rs.getDouble("total_amount"));
+                }
+            }
+            
+            pstmt2.setInt(1, id);
+            try(ResultSet rs = pstmt2.executeQuery();){
+                while(rs.next()){
+                    OrderItem item = new OrderItem();
+                    item.setOrderId(order.getId());
+                    
+                    Product p = new Product();
+                    p.setId(rs.getInt("product_id"));
+                    p.setName(rs.getString("name"));
+                    item.setProduct(p);
+                    
+                    item.setPrice(rs.getDouble("price"));
+                    item.setQuantity(rs.getInt("quantity"));
+                    order.add(item);
+                }
+            }
+            return order;
+        }catch(SQLException ex){
+            throw new GameBuyException("查詢客戶歷史訂單失敗!",ex);
+        }
     }
 
     public List<Order> getByCustomer(String customerEmail) throws GameBuyException {
