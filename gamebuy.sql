@@ -212,6 +212,15 @@ CREATE TABLE   gamebuy . order_item  (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 COMMIT;
 
+DROP TABLE IF EXISTS `gamebuy`.`orders_log`;
+CREATE TABLE  `gamebuy`.`orders_log` (
+  `order_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `old_status` smallint(5) unsigned NOT NULL,
+  `new_status` smallint(5) unsigned NOT NULL,
+  PRIMARY KEY (`order_id`,`update_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+COMMIT;
 
 
 

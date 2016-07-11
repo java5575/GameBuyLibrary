@@ -45,6 +45,10 @@ public class OrderService {
     public List<Order> getByCustomer(String customerEmail) throws GameBuyException {
         return dao.getByCustomer(customerEmail);
     }
+
+    public void updateStatus2Paid(Order order) throws GameBuyException {
+        dao.updateStatus2Paid(order);
+    }
     
     
     

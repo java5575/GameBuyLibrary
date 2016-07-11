@@ -12,6 +12,7 @@ import gamebuy.gb.domain.OrderItem;
 import gamebuy.gb.domain.PaymentType;
 import gamebuy.gb.domain.Product;
 import gamebuy.gb.domain.ShippingType;
+import gamebuy.gb.domain.Status;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,11 +30,20 @@ public class RDBOrderDAO {
     private static final String COL_LIST = "customer_email,created_time,payment_type,payment_fee,payment_note,"
             + "shipping_type,shipping_fee,shipping_note,shipping_address,receiver_name,receiver_email,"
             + "receiver_phone,status,bonus,new_bonus";
+    
     private static final String INSERT_ORDERS_SQL = "INSERT INTO orders (" + COL_LIST
             + ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    
     private static final String INSERT_ORDERITEM_SQL = "INSERT INTO order_item ("
             + "order_id,product_id,price,quantity,new_bouns"
             + ") VALUES(?,?,?,?,?)";
+    
+    private static final String UPDATE_ORDER_PAID = "UPDATE orders SET"
+            + " status=" + Status.PAID.ordinal() + ",payment_note=?"
+            +"WHERE customer_email=? AND id=?"
+            + " AND payment_type=" + PaymentType.ATM.ordinal()
+            + " AND status=" + Status.NEW.ordinal();
+    
     private static final String SELECT_ORDERS_HISTORY_BY_CUSTOMER_ID
             = "SELECT orders.id,orders.created_time,orders.status,"
             + "payment_type,payment_fee,shipping_fee,shipping_type,shipping_address,"
@@ -121,6 +131,24 @@ public class RDBOrderDAO {
     public void delete(Order c) throws GameBuyException {
 
     }
+    
+    public void updateStatus2Paid(Order order) throws GameBuyException {
+        try(Connection connection = RDBConnection.getConnection();
+                PreparedStatement pstmt = connection.prepareStatement(UPDATE_ORDER_PAID);){
+            pstmt.setString(1, order.getPaymentNote());
+            pstmt.setString(2, order.getCustomer().getId());
+            pstmt.setInt(3, order.getId());
+            
+            int rows = pstmt.executeUpdate();
+            if(rows == 0){
+                throw new GameBuyException("訂單(No."+order.getId()+")狀態已不同，請重新查詢該訂單");
+            }
+            
+        }catch(SQLException ex){
+            throw new GameBuyException("通知[訂單(" + order.getId() + ")已轉帳]失敗!", ex);
+        }
+    }
+    
     
     public void updateStatus(int oldStatus, Order order) throws GameBuyException {
         
