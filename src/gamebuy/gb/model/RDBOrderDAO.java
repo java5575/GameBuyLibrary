@@ -136,7 +136,7 @@ public class RDBOrderDAO {
         try(Connection connection = RDBConnection.getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(UPDATE_ORDER_PAID);){
             pstmt.setString(1, order.getPaymentNote());
-            pstmt.setString(2, order.getCustomer().getId());
+            pstmt.setString(2, order.getCustomer().getEmail());
             pstmt.setInt(3, order.getId());
             
             int rows = pstmt.executeUpdate();
@@ -166,7 +166,7 @@ public class RDBOrderDAO {
                     Customer c = new Customer();
                     c.setEmail(rs.getString("customer_email"));
                     c.setName(rs.getString("name"));
-                    c.setPassword("password");
+                    c.setPassword(rs.getString("password"));
                     order.setCustomer(c);
                     order.setCreatedTime(rs.getTimestamp("created_time")); //TimeStamp
                     order.setStatus(rs.getInt("status"));

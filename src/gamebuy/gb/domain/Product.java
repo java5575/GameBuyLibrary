@@ -138,7 +138,7 @@ public class Product {
         if (preferentialPrice >= 0 && preferentialPrice <= this.getUnitPrice()) {
             this.preferentialPrice = preferentialPrice;
         } else {
-            throw new GameBuyException("遊戲平台不能為空白");
+            throw new GameBuyException("特價價格不可大於原價");
         }
     }
 

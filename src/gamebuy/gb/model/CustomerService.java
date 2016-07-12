@@ -33,24 +33,41 @@ public class CustomerService {
         //TODO:須完成客戶註冊(insert)處理
         dao.insert(c);
     }
+
     //delegate method
-    public void update(Customer c)throws GameBuyException{
-    
+    public void update(Customer c) throws GameBuyException {
+
         dao.update(c);
     }
 //delegate method
+
     public void delete(Customer c) throws GameBuyException {
         dao.delete(c);
     }
 //delegate method
+
     public List<Customer> getAll() throws GameBuyException {
         return dao.getAll();
     }
 //delegate method
+
     public Customer get(String id) throws GameBuyException {
         return dao.get(id);
     }
 
+    public Customer getPassword(Customer c) throws GameBuyException {
+        Customer c_check = dao.get(c.getEmail());
+        System.out.println(c_check);
+        if ( c.getEmail().equals(c_check.getEmail()) && c.getName().equals(c_check.getName())
+                && c.getId().equals(c_check.getId())) {
+            JavaMailService maill = new JavaMailService();
+            maill.sendPassword(c_check);
 
+            return c_check;
+        } else {
+            return c;
+        }
+
+    }
 
 }

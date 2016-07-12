@@ -24,7 +24,7 @@ public class Customer {
     //密碼正規表達式
     private static final String PASSWORD_PATTERN = "^[a-zA-Z]\\w{3,14}$";
     //生日的格式化
-    public static final DateFormat birthdayFormat = new SimpleDateFormat("yyyy/MM/dd");
+    public static final DateFormat birthdayFormat = new SimpleDateFormat("yyyy/M/d");
     public static final DateFormat birthdayWebFormat = new SimpleDateFormat("yyyy-MM-dd");
     //身分證的正規表達式
     public static final String ID_PATTERN = "[A-Z][12]\\d{8}";

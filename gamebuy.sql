@@ -171,6 +171,42 @@ INSERT INTO `products` (`id`,`name`,`unitprice`,`stock`,`url`,`description`,`bon
 /*!40000 ALTER TABLE  products  ENABLE KEYS */;
 COMMIT;
 
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('54', '《F1 2016》一般版', '1790', '10', 'images\\f1.JPG', '在《F1 2016》中創造傳奇。準備好深入這世界上最知名的競速運動吧！《F1 2016》為「2016 FIA FORMULA ONE WORLD CHAMPIONSHIP」官方認可的競速遊戲，完整收錄了 F1 2016 賽季的 21 條專用賽道，其中包含位於亞塞拜然全新的「巴庫市街賽道」，以及全新的「Hass F1 Team」等完整的11車隊與22名車手名單。', '89', '0', '1790', '2016-8-19', '0', '2');
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='50';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='49';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='48';
+UPDATE `gamebuy`.`products` SET `status`='1' WHERE `id`='47';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='46';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='45';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='44';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='43';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='42';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='41';
+UPDATE `gamebuy`.`products` SET `status`='1' WHERE `id`='40';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='39';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='38';
+UPDATE `gamebuy`.`products` SET `status`='1' WHERE `id`='36';
+UPDATE `gamebuy`.`products` SET `status`='1' WHERE `id`='35';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='30';
+UPDATE `gamebuy`.`products` SET `status`='0' WHERE `id`='29';
+COMMIT;
+
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('55', '《寶貝龍冒險：想像者》暗黑版新手包', '4280', '0', 'images\\imaginators.JPG', '卡歐斯發現了原古力量的魔力核心，並藉此力建造了一支銳不可當的毀滅部隊！伊恩此時發出訊息，必須聚集此地所有的防衛者與最精銳的神秘勇士先師，才能阻止卡歐斯與他的爪牙們。', '214', '1', '4290', '2016-10-16', '0', '2');
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('56', '《極限競速：地平線 3》中文一般版', '1690', '10', 'images\\forza.JPG', '《極限競速：地平線 3》結合了《極限競速》中傳奇般的真實性，搭配節慶般的氣氛以及自由的開放性道路。提供了一個讓人難以自拔、隨處可玩、開放性道路的競速體驗，並支援了《極限競速》系列著名的絕佳真實度、多樣性與創新。', '84', '1', '1690', '2016-09-27', '0', '2');
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('57', '《塞巴斯蒂安·勒布拉力賽》英文版', '1790', '10', 'images\\0000079215.JPG.JPG', '由《世界摩托車錦標賽（MotoGP）》、《世界越野冠軍賽（WRC）》 開發商 Milestone Srl 以傳奇賽車手塞巴斯蒂安·勒布（Sébastien Loeb）之名來打造的《塞巴斯蒂安·勒布拉力賽》，要讓玩家們駕馭由古至今最傑出的車款參加全球最頂級的賽事。', '89', '0', '1790', '2016-1-29', '0', '2');
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('58', '《為戰而生》中英文合版', '990', '10', 'images\\0001342536.JPG', '《為戰而生》是款融合多樣戰鬥風格與豐富技能的第一人稱射擊遊戲，提供多達 25 名可扮演的英雄供玩家選擇，每位英雄都有專屬的個性並配有獨特的武器和能力。遊戲中玩家可以透過類似技能樹的「螺旋系統」，在一個故事任務中或是在一場競爭性多人遊戲中，徹底體驗每位英雄的完整升級過程。', '49', '0', '990', '2016-7-7', '1', '2');
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('59', '《國際足盟大賽 16》中文一般版', '1790', '10', 'images\\0001207436.JPG', '《國際足盟大賽 16》能讓您創造出超越既往的更多魔幻時刻。 藉由更棒的中場操控機制、改進的防守動作、更多的球星以及新的玩法，讓每場比賽都令人回味。 在 FIFA Ultimate Team 裡打造您的夢幻球隊，或是率領首次在《國際足盟大賽》系列登場的 12 支女子國家代表隊之一出戰（包括德國隊、美國隊、法國隊、瑞典隊、英國隊、巴西隊等）。《國際足盟大賽 16》的創新足跡遍及整個球場，帶來寫實逼真的足球體驗。', '89', '0', '1790', '2015-9-20', '1', '2');
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('60', '《蒼翼默示錄 刻之幻影 擴充版》中文版', '1590', '10', 'images\\0001202926.JPG', '大型機台版本的《蒼翼默示錄 刻之幻影 擴充版 2.0》已於 2014 年冬天推出，而本作是其遊戲機版本，加上多項新元素以及「賽莉卡‧A‧麥丘里」和「Λ-No.11-」兩位新角色，成為《蒼翼默示錄》系列的最新作品。', '79', '0', '1590', '2015-10-15', '1', '2');
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('61', '《靈感計畫》中文版', '1090', '10', 'images\\0001077482.JPG', '《靈感計畫（Project Spark）》是一個開放式的沙盤世界遊戲，任何人都可以建立和分享你自己所創造的世界和遊戲。在這遊戲中，你可建立並發揮自己的世界、故事和遊戲。在 Champion Quest 參加史詩的任務，從邪惡中拯救純淨世界！', '54.5', '0', '1090', '2015-1-30', '1', '2');
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('62', '《Ryse：羅馬之子 傳奇版》中文版', '1390', '10', 'images\\0001030853.JPG', '《Ryse：羅馬之子》以前所未見的方式，從大不列顛的北方到羅馬中心的競技場，重現羅馬帝國的衝突戰。全新的動態擷取技術，讓您面對真實無比的人物，連面部表情和真實情感，都表現的栩栩如生。《Ryse：羅馬之子》描述年輕羅馬士兵 Marius Titus 的故事，在親眼目睹全家被蠻族強盜殺害之後誓言報仇，與羅馬軍隊一塊跋涉到大不列顛，證明自已的過人之處，很快的在軍旅中不斷晉升。隨著 Marius 領導軍隊抵抗蠻族部落的任務不斷進展，他終於瞭解自己必需重回羅馬，才能為這一次的復仇之旅劃下休止符。', '69', '0', '1390', '2016-2-2', '2', '2');
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('63', '《死亡復甦 3 世界末日版》中文版', '1390', '10', 'images\\0001030884.JPG', '《死亡復甦 3》是暢銷遊戲的第三代，故事設定在《死亡復甦 2》十年之後，玩家將會化身為尼克‧拉摩斯，一位擁有古怪刺青及神秘過去的技工。他必須趕在軍方展開大規模軍事掃盪之前，盡快逃出這個嗜血殭屍遍布的城市：因為時間一到，洛佩迪多市甚至整個加州的每一個人，都將全數遭到殲滅，從此消失在地圖上。', '69', '0', '1390', '2016-4-10', '2', '2');
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('64', '《落日飆神》英文版', '1690', '10', 'images\\0001070207.JPG', '由《拉捷特與克拉克》系列的製作團隊 Insomniac Games 所打造的第三人稱跑酷射擊遊戲，故事內容描述 2027 年未來世界的日落市，有一間飲料公司開發了一款「OverchargeDelirium XT」能量飲料，並為新飲料舉辦上市派對，結果現場喝了這飲料的民眾通通都變成黃澄澄的變種人！玩家們的任務就是要消滅這些變種人和阻止這一切恐怖的變身事件。', '84', '0', '1690', '2016-6-20', '2', '2');
+INSERT INTO `gamebuy`.`products` (`id`, `name`, `unitprice`, `stock`, `url`, `description`, `bonus`, `status`, `preferentialprice`, `issuedate`, `gametype_idgametype`, `platform_idplatform`) VALUES ('65', '《墮落之王》英文版', '1790', '10', 'images\\0001074776.JPG', '由波蘭 CI Games 與德國 Deck 13 負責研發、《巫師 2》製作人 Tomasz Gop 擔綱動作角色扮演遊戲新作《墮落之王》，玩家將化身為 Harkyn，一個身負重罪、為社會所不容的人，如今卻是阻擋惡魔入侵人類社會的最大希望。', '89', '0', '1790', '2016-7-10', '2', '2');
+COMMIT;
+
+UPDATE `gamebuy`.`products` SET `preferentialprice`='4280' WHERE `id`='55';
+COMMIT;
+
 DROP TABLE IF EXISTS  gamebuy . orders ;
 CREATE TABLE   gamebuy . orders  (
    id  int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -222,6 +258,10 @@ CREATE TABLE  `gamebuy`.`orders_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 COMMIT;
 
+CREATE TRIGGER gamebuy.log_orders_status AFTER UPDATE ON gamebuy.orders FOR EACH ROW
+    INSERT INTO gamebuy.orders_log(order_id, old_status, new_status) 
+		VALUES (new.id, old.status, new.status);
 
+COMMIT;
 
 
