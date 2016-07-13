@@ -38,7 +38,7 @@ public class RDBProductsDAO {
     private static final String JOIN_SELECT_GAMETYPE_SQL = "SELECT " + COL_LIST2 + " FROM products "
             + "INNER JOIN platform ON products.platform_idplatform = platform.idplatform "
             + "INNER JOIN gametype ON products.gametype_idgametype = gametype.idgametype "
-            + "WHERE products.gametype_idgametype = ?";
+            + "WHERE products.gametype_idgametype = ? AND products.platform_idplatform = ?";
     private static final String JOIN_SELECT_PLATFROM_SQL = "SELECT " + COL_LIST2 + " FROM products "
             + "INNER JOIN platform ON products.platform_idplatform = platform.idplatform "
             + "INNER JOIN gametype ON products.gametype_idgametype = gametype.idgametype "
@@ -230,11 +230,12 @@ public class RDBProductsDAO {
         }
     }
     
-    public List<Product> getGametype(int gametype_idgametype) throws GameBuyException {
+    public List<Product> getGametype(int gametype_idgametype,int platform_idplatform) throws GameBuyException {
         List<Product> list = new ArrayList<>();
         try (Connection connection = RDBConnection.getConnection();
                 PreparedStatement pstmt = connection.prepareStatement(JOIN_SELECT_GAMETYPE_SQL);) {
             pstmt.setInt(1, gametype_idgametype);//傳SQL指令
+            pstmt.setInt(2, platform_idplatform);
             try (ResultSet rs = pstmt.executeQuery();) {
                 while (rs.next()) {
                     Product p = new Product();

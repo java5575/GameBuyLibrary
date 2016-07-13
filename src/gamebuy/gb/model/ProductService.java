@@ -36,8 +36,8 @@ public class ProductService {
         return dao.get(id);
     }
 
-    public List<Product> getGametype(int gametype_idgametype) throws GameBuyException {
-        return dao.getGametype(gametype_idgametype);
+    public List<Product> getGametype(int gametype_idgametype,int platform_idplatform) throws GameBuyException {
+        return dao.getGametype(gametype_idgametype, platform_idplatform);
     }
 
     public List<Product> getByName(String name) throws GameBuyException {
